@@ -18,7 +18,7 @@ jobs:
           sudo apt-get install -y jq
 
 
-      - name: Download latest Rust language server release
+      - name: Download latest ic10lsp language server releases
         id: download-lsp
         run: |
           LATEST_RELEASE=$(curl --silent "https://api.github.com/repos/Xandaros/ic10lsp/releases/latest" | jq -r .tag_name)
@@ -62,7 +62,6 @@ jobs:
           echo "::set-output name=version::$VERSION"
 
       - name: Create GitHub release
-        if: matrix.os == 'ubuntu-latest'
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.package-version.outputs.version }}
@@ -70,6 +69,6 @@ jobs:
             *.vsix
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Publish to VS Marketplace
         run: npx vsce publish -p ${{ secrets.VSCE_PAT }}
