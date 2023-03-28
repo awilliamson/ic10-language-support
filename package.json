@@ -1,5 +1,15 @@
 {
   "name": "ic10-language-support",
+  "authors": [
+    {
+        "name": "Ashley Williamson",
+        "url": "https://github.com/awilliamson/"
+    },
+    {
+        "name": "Xandaros",
+        "url": "https://github.com/Xandaros/"
+    }
+  ],
   "displayName": "IC10 Language Support",
   "description": "IC10 MIPS-like Language Support for Stationeers - Featuring completions, hover information, signature help, goto definition, diagnostics, and more.",
   "version": "0.0.4",
@@ -58,5 +68,9 @@
   },
   "dependencies": {
     "vscode-languageclient": "^8.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awilliamson/ic10-language-support"
+}
 }
