@@ -2,17 +2,18 @@
   "name": "ic10-language-support",
   "authors": [
     {
-        "name": "Ashley Williamson",
-        "url": "https://github.com/awilliamson/"
+      "name": "Ashley Williamson",
+      "url": "https://github.com/awilliamson/"
     },
     {
-        "name": "Xandaros",
-        "url": "https://github.com/Xandaros/"
+      "name": "Xandaros",
+      "url": "https://github.com/Xandaros/"
     }
   ],
+  "icon": "images/icon.png",
   "displayName": "IC10 Language Support",
   "description": "IC10 MIPS-like Language Support for Stationeers - Featuring completions, hover information, signature help, goto definition, diagnostics, and more.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -35,11 +36,11 @@
       }
     ],
     "grammars": [
-        {
-            "language": "ic10",
-            "scopeName": "source.ic10",
-            "path": "./syntaxes/ic10.tmLanguage.json"
-        }
+      {
+        "language": "ic10",
+        "scopeName": "source.ic10",
+        "path": "./syntaxes/ic10.tmLanguage.json"
+      }
     ]
   },
   "activationEvents": [
@@ -51,7 +52,8 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "release": "standard-version"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
@@ -64,6 +66,7 @@
     "eslint": "^8.36.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",
+    "standard-version": "^9.5.0",
     "typescript": "^4.9.5"
   },
   "dependencies": {
@@ -72,5 +75,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/awilliamson/ic10-language-support"
-}
+  }
 }
