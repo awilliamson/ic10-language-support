@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master  # Replace with your default branch name, if different
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install jq
+        run: |
+          sudo apt-get install -y jq
+
+
+      - name: Download latest Rust language server release
+        id: download-lsp
+        run: |
+          LATEST_RELEASE=$(curl --silent "https://api.github.com/repos/Xandaros/ic10lsp/releases/latest" | jq -r .tag_name)
+          WINDOWS_LSP_DOWNLOAD_URL=$(curl --silent "https://api.github.com/repos/Xandaros/ic10lsp/releases/tags/$LATEST_RELEASE" | jq -r '.assets[] | select(.name | contains("windows")) | .browser_download_url')
+          LINUX_LSP_DOWNLOAD_URL=$(curl --silent "https://api.github.com/repos/Xandaros/ic10lsp/releases/tags/$LATEST_RELEASE" | jq -r '.assets[] | select(.name | contains("linux")) | .browser_download_url')
+          echo "::set-output name=windows-lsp-download-url::$WINDOWS_LSP_DOWNLOAD_URL"
+          echo "::set-output name=linux-lsp-download-url::$LINUX_LSP_DOWNLOAD_URL"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
+
+      - name: Download and extract language server for Windows
+        run: |
+          curl -L ${{ steps.download-lsp.outputs.windows-lsp-download-url }} -o language_server_windows.zip
+          unzip language_server_windows.zip -d ./bin
+
+      - name: Download and extract language server for Linux
+        run: |
+          curl -L ${{ steps.download-lsp.outputs.linux-lsp-download-url }} -o language_server_linux.tar.gz
+          tar -xzf language_server_linux.tar.gz -C ./bin
+
+      - name: Change execute permissions
+        run: |
+          chmod a+x ./bin/ic10lsp
+          chmod a+x ./bin/ic10lsp.exe
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Package VSCode extension
+        run: npx vsce package
+
+      - name: Get version from package.json
+        id: package-version
+        run: |
+          VERSION=$(jq -r .version package.json)
+          echo "::set-output name=version::$VERSION"
+
+      - name: Create GitHub release
+        if: matrix.os == 'ubuntu-latest'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.package-version.outputs.version }}
+          files: |
+            *.vsix
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Publish to VS Marketplace
+        run: npx vsce publish -p ${{ secrets.VSCE_PAT }}
