@@ -12,8 +12,6 @@ import {
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-    vscode.window.showInformationMessage('IC10 Language Support extension is now active!');
-
 	// The server is implemented in the upstream language server
     const serverModule = context.asAbsolutePath(
         path.join('bin', 'ic10lsp')

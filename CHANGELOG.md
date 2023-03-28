@@ -15,7 +15,3 @@ All notable changes to this project will be documented in this file. See [standa
 All notable changes to the "ic10-language-support" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
