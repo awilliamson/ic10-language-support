@@ -13,6 +13,7 @@
   "icon": "images/icon.png",
   "displayName": "IC10 Language Support",
   "description": "IC10 MIPS-like Language Support for Stationeers - Featuring completions, hover information, signature help, goto definition, diagnostics, and more.",
+  "publisher": "AshleyWilliamson",
   "version": "0.0.6",
   "engines": {
     "vscode": "^1.74.0"
@@ -47,12 +48,11 @@
     "onLanguage:ic10"
   ],
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js",
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+    "esbuild": "npm run esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "test-compile": "tsc -p ./",
     "release": "standard-version"
   },
   "devDependencies": {
@@ -63,6 +63,7 @@
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "@vscode/test-electron": "^2.3.0",
+    "esbuild": "^0.17.14",
     "eslint": "^8.36.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",
