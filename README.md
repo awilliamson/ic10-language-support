@@ -1,6 +1,6 @@
 # IC10 Language Support for Stationeers
 
-This Visual Studio Code extension provides syntax highlighting, IntelliSense, and other language support features for the IC10 MIPS-like language used in the game Stationeers.
+This Visual Studio Code extension provides syntax highlighting, IntelliSense, and other language support features for the IC10 MIPS-like language used in the game Stationeers. Uses the Language Server [ic10lsp](https://github.com/Xandaros/ic10lsp)
 
 ## Features
 
