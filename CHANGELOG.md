@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.9](https://github.com/awilliamson/ic10-language-support/compare/v0.0.8...v0.0.9) (2023-03-28)
+
+
+### Features
+
+* **release.yml:** add GitHub Actions workflow for releasing the language server and VSCode extension. The workflow downloads the latest release of the language server from the Xandaros/ic10lsp repository, installs dependencies, packages the VSCode extension, creates a GitHub release, and publishes the extension to the VS Marketplace. ([d3e7279](https://github.com/awilliamson/ic10-language-support/commit/d3e7279fc0d0072cbfe7729cb867c1c581fca850))
+
 ### [0.0.8](https://github.com/awilliamson/ic10-language-support/compare/v0.0.6...v0.0.8) (2023-03-28)
 
 ### [0.0.7](https://github.com/awilliamson/ic10-language-support/compare/v0.0.6...v0.0.7) (2023-03-28)
