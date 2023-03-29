@@ -2,10 +2,12 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import * as path from 'path';
+import * as net from 'net';
 import {
     LanguageClient,
     LanguageClientOptions,
-    ServerOptions
+    ServerOptions,
+    StreamInfo
 } from 'vscode-languageclient/node';
 
 // This method is called when your extension is activated
@@ -20,12 +22,36 @@ export function activate(context: vscode.ExtensionContext) {
     // The debug options for the server
     const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
 
-    // If the extension is launched in debug mode, then the debug server options are used
-    // Otherwise, the run options are used
-    const serverOptions: ServerOptions = {
-        run: { command: serverModule },
-        debug: { command: serverModule, args: ['--debug'], ...debugOptions },
-    };
+    const config = vscode.workspace.getConfiguration();
+    const useRemoteLanguageServer = config.get('ic10.useRemoteLanguageServer') as boolean;
+
+    let serverOptions: ServerOptions;
+
+    if (useRemoteLanguageServer) {
+
+        const remoteLanguageServerHost = config.get('ic10.remoteLanguageServerHost') as string;
+        const remoteLanguageServerPort = config.get('ic10.remoteLanguageServerPort') as number;
+
+        let connectionInfo = {
+            host: remoteLanguageServerHost,
+            port: remoteLanguageServerPort
+        };
+        serverOptions = () => {
+            // Connect to language server via socket
+            let socket = net.connect(connectionInfo);
+            let result: StreamInfo = {
+                writer: socket,
+                reader: socket
+            };
+            return Promise.resolve(result);
+        };
+    }
+    else {
+        serverOptions = {
+            run: { command: serverModule },
+            debug: { command: serverModule, args: ['--debug'], ...debugOptions },
+        };
+    }
 
     // Options to control the language client
     const clientOptions: LanguageClientOptions = {
