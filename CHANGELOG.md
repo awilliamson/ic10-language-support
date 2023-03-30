@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/awilliamson/ic10-language-support/compare/v0.2.0...v0.3.0) (2023-03-30)
+
+
+### Features
+
+* **extension.ts:** add support for untitled files in the IC10 language client document selector ([4a5bc50](https://github.com/awilliamson/ic10-language-support/commit/4a5bc507c71cebc0fdbfdf76615a9e16ae18a3fc))
+
 ## [0.2.0](https://github.com/awilliamson/ic10-language-support/compare/v0.1.1...v0.2.0) (2023-03-29)
 
 ### [0.1.1](https://github.com/awilliamson/ic10-language-support/compare/v0.1.0...v0.1.1) (2023-03-29)
