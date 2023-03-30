@@ -19,9 +19,6 @@ export function activate(context: vscode.ExtensionContext) {
     // The server is implemented in the upstream language server
     const serverModule = context.asAbsolutePath(path.join('bin', serverBinary));
 
-    // The debug options for the server
-    const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
-
     const config = vscode.workspace.getConfiguration();
     const useRemoteLanguageServer = config.get('ic10.useRemoteLanguageServer') as boolean;
 
@@ -49,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
     else {
         serverOptions = {
             run: { command: serverModule },
-            debug: { command: serverModule, args: ['--debug'], ...debugOptions },
+            debug: { command: serverModule },
         };
     }
 
@@ -57,10 +54,6 @@ export function activate(context: vscode.ExtensionContext) {
     const clientOptions: LanguageClientOptions = {
         // Register the server for IC10 MIPS-like language documents
         documentSelector: [{ scheme: 'file', language: 'ic10' }],
-        synchronize: {
-            // Notify the server about file changes to '.clientrc' files contained in the workspace
-            fileEvents: vscode.workspace.createFileSystemWatcher('**/.clientrc'),
-        }
     };
 
 
