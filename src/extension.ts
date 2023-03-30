@@ -53,7 +53,10 @@ export function activate(context: vscode.ExtensionContext) {
     // Options to control the language client
     const clientOptions: LanguageClientOptions = {
         // Register the server for IC10 MIPS-like language documents
-        documentSelector: [{ scheme: 'file', language: 'ic10' }],
+        documentSelector: [
+            { scheme: 'file', language: 'ic10' },
+            { scheme: 'untitled', language: 'ic10' }
+        ],
     };
 
 
