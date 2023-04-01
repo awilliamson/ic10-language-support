@@ -49,16 +49,19 @@
                 "ic10.useRemoteLanguageServer": {
                     "type": "boolean",
                     "default": false,
+                    "title": "Use Remote Language Server",
                     "description": "Whether to connect to a remote language server or run the language server locally"
                 },
                 "ic10.remoteLanguageServerHost": {
                     "type": "string",
                     "default": "localhost",
+                    "title": "Remote Language Server Host",
                     "description": "The host name for the remote language server"
                 },
                 "ic10.remoteLanguageServerPort": {
                     "type": "number",
                     "default": 9257,
+                    "title": "Remote Language Server Port",
                     "description": "The port number for the remote language server"
                 }
             }
