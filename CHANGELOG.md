@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/awilliamson/ic10-language-support/compare/v0.3.0...v0.4.0) (2023-04-01)
+
+
+### Features
+
+* **extension.ts:** add ic10.lsp.restart and ic10.lsp.version commands to the extension ([3572864](https://github.com/awilliamson/ic10-language-support/commit/357286448163d5c628a7708fa0b36169237eec32))
+* **package.json:** add configuration options for ic10 language server, including max_lines, max_columns, and warnings for overline and overcolumn comments. ([72a48b2](https://github.com/awilliamson/ic10-language-support/commit/72a48b20657a15c77ec8d0439e85e964f4225857))
+
 ## [0.3.0](https://github.com/awilliamson/ic10-language-support/compare/v0.2.0...v0.3.0) (2023-03-30)
 
 
