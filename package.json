@@ -63,6 +63,30 @@
                     "default": 9257,
                     "title": "Remote Language Server Port",
                     "description": "The port number for the remote language server"
+                },
+                "ic10.lsp.max_lines": {
+                    "type": "number",
+                    "default": 128,
+                    "title": "Maximum Number of Lines",
+                    "description": "The maximum number of lines permitted by ic10. Errors will be generated for code above this limit."
+                },
+                "ic10.lsp.max_columns": {
+                    "type": "number",
+                    "default": 52,
+                    "title": "Maximum Columns per Line",
+                    "description": "The maximum number of columns permitted by ic10. Errors will be generated for code above this limit."
+                },
+                "ic10.lsp.warnings.overline_comment": {
+                    "type": "boolean",
+                    "default": true,
+                    "title": "Show Overline Comment Warning",
+                    "description": "Whether to show a warning when a comment is over the line limit (ic10.max_lines)"
+                },
+                "ic10.lsp.warnings.overcolumn_comment": {
+                    "type": "boolean",
+                    "default": true,
+                    "title": "Show Overcolumn Comment Warning",
+                    "description": "Whether to show a warning when a comment is over the column limit (ic10.max_columns)"
                 }
             }
         }

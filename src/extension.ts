@@ -4,15 +4,24 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as net from 'net';
 import {
+    DidChangeConfigurationNotification,
     LanguageClient,
     LanguageClientOptions,
     ServerOptions,
     StreamInfo
 } from 'vscode-languageclient/node';
 
+function getLSPIC10Configurations(): vscode.WorkspaceConfiguration {
+    return vscode.workspace.getConfiguration('ic10.lsp');
+}
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+
+    // Activate Notification through VSCode Notifications
+    vscode.window.showInformationMessage('IC10 Language Server is now active!');
+
 
     const serverBinary = process.platform === "win32" ? "ic10lsp.exe" : "ic10lsp";
 
@@ -20,6 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
     const serverModule = context.asAbsolutePath(path.join('bin', serverBinary));
 
     const config = vscode.workspace.getConfiguration();
+
     const useRemoteLanguageServer = config.get('ic10.useRemoteLanguageServer') as boolean;
 
     let serverOptions: ServerOptions;
@@ -74,6 +84,16 @@ export function activate(context: vscode.ExtensionContext) {
     lc.start().then(() => {
         context.subscriptions.push(lc);
     });
+
+    // Initial config
+    lc.sendNotification(DidChangeConfigurationNotification.type, { settings: getLSPIC10Configurations() });
+
+    // Register configuration changes to sendNotification.
+    vscode.workspace.onDidChangeConfiguration((e: vscode.ConfigurationChangeEvent) => {
+        if (e.affectsConfiguration('ic10.lsp')) {
+            lc.sendNotification(DidChangeConfigurationNotification.type, { settings: getLSPIC10Configurations() });
+        }
+    })
 }
 
 // This method is called when your extension is deactivated
