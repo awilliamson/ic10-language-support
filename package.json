@@ -43,6 +43,18 @@
                 "path": "./syntaxes/ic10.tmLanguage.json"
             }
         ],
+        "commands": [
+            {
+                "command": "ic10.lsp.restart",
+                "title": "IC10: Restart Server",
+                "description": "Restart IC10 Language Server"
+            },
+            {
+                "command": "ic10.lsp.version",
+                "title": "IC10: Show Version",
+                "description": "IC10 Language Server Version"
+            }
+        ],
         "configuration": {
             "title": "IC10 Language Support",
             "properties": {

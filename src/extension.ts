@@ -8,7 +8,8 @@ import {
     LanguageClient,
     LanguageClientOptions,
     ServerOptions,
-    StreamInfo
+    StreamInfo,
+    ExecuteCommandParams
 } from 'vscode-languageclient/node';
 
 function getLSPIC10Configurations(): vscode.WorkspaceConfiguration {
@@ -69,7 +70,6 @@ export function activate(context: vscode.ExtensionContext) {
         ],
     };
 
-
     // Create the language client and start the client.
     const lc = new LanguageClient(
         'ic10',
@@ -94,6 +94,24 @@ export function activate(context: vscode.ExtensionContext) {
             lc.sendNotification(DidChangeConfigurationNotification.type, { settings: getLSPIC10Configurations() });
         }
     })
+
+    // Register commands
+    context.subscriptions.push(vscode.commands.registerCommand('ic10.lsp.restart', () => {
+        vscode.window.showInformationMessage('Restarting IC10 Language Server...');
+        lc.stop().then(() => lc.start());
+    }    ));
+
+    // Register ic10.lsp.version command
+    context.subscriptions.push(vscode.commands.registerCommand('ic10.lsp.version', () => {
+        // ExecuteCommandOptions
+        const options: ExecuteCommandParams = {
+            command: 'version',
+            arguments: []
+        };
+
+        lc.sendRequest('workspace/executeCommand', options);
+    }   ));
+
 }
 
 // This method is called when your extension is deactivated
